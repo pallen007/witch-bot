@@ -7,7 +7,7 @@
     "test": "test",
     "reg-command": "node src/utils/register-commands.js",
     "start": "npm run reg-command && node src/destinybot.js",
-    "start-dev": "node destinybot.js"
+    "start-dev": "node src/destinybot.js"
   },
   "author": "Parker Allen",
   "license": "ISC",

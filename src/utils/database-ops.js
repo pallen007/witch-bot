@@ -12,22 +12,22 @@ class DbOps {
         if (fs.existsSync(credentials.destiny.manifestLocation)){
             this.#db = require(credentials.destiny.manifestLocation)
         } else {
-            retrieve.refreshManifest().then(res => {
-                if (res) {
-                    this.#db = require(credentials.destiny.manifestLocation)
-                } 
-            })
+            this.#db = require(retrieve.refreshManifest())
         }
     }
 
     refreshDb = () => {
-        this.#db = null
-        retrieve.refreshManifest().then(res => {
-            if (res) {
-                this.#db = require(credentials.destiny.manifestLocation)
-            } 
-        })
+        this.#db = require(retrieve.refreshManifest())
     }
+
+    lookup = (itemType, itemHash) => {}
+
+    lookupItem = (itemHash) => {}
+    lookupArmor = (itemHash) => {}
+    lookupWeapon = (itemHash) => {}
+    lookupInstancedItem = (itemHash) => {}
+    lookupInstancedWeapon = (itemHash) => {}
+    lookupInstancedArmor = (itemHash) => {}
 
     // lookup operations to parse through manifest and match up hashes from api queries
 

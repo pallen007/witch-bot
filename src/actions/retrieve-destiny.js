@@ -23,7 +23,7 @@ class DestinyRetrieve {
                         }
                     ).then( content => {
                         fs.writeFileSync(config.destiny.manifestLocation, content)
-                        return true
+                        return config.destiny.manifestLocation
                     })
                 }
             )
