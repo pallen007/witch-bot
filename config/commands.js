@@ -1,5 +1,5 @@
-class Commands {
-    items = [
+export const Commands = {
+    items: [
         {
             name: 'status',
             description: 'Get bot status'
@@ -34,5 +34,3 @@ class Commands {
         }
     ]
 } 
-
-module.exports = new Commands();

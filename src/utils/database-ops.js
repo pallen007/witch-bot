@@ -1,23 +1,30 @@
-const credentials = require('../../config/credentials');
-const fs = require('fs')
-const retrieve = require('../actions/retrieve-destiny')
+import { Credentials }  from '../../config/credentials.js'
+import fs from 'fs'
+import * as retrieve from'../actions/retrieve-destiny.js'
+import { ModalBuilder } from '@discordjs/builders'
 
 
 
-class DbOps {
+export class DbOps {
 
     #db;
 
     constructor () {
-        if (fs.existsSync(credentials.destiny.manifestLocation)){
-            this.#db = require(credentials.destiny.manifestLocation)
+        if (fs.existsSync(Credentials.destiny.manifestLocation)){
+            this.#db = require(Credentials.destiny.manifestLocation)
         } else {
-            this.#db = require(retrieve.refreshManifest())
+            retrieve.refreshManifest().then( () => {
+                console.log('past refresh call')
+                this.#db = require(location)
+            })
         }
     }
 
     refreshDb = () => {
-        this.#db = require(retrieve.refreshManifest())
+        retrieve.refreshManifest().then( () => {
+            console.log('past refresh call')
+            this.#db = require(location)
+        })
     }
 
     lookup = (itemType, itemHash) => {}
@@ -35,6 +42,3 @@ class DbOps {
 
 
 }
-
-module.exports = new DbOps();
-    

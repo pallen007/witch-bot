@@ -1,5 +1,5 @@
-class Credentials {
-    discord = {
+export const Credentials = {
+    discord: {
         // discord values all taken from bot's application page in discord developer portal
         botToken: "",
         appId: "",
@@ -8,8 +8,8 @@ class Credentials {
         //ID for discord server, replace with ID for clan once testing completed
         testGuildId: "",
         wbwGuildId: ""
-    };
-    destiny = {
+    },
+    destiny: {
         appName: "wbw-bot",
         apiKey: "", // Generate this with your Bungie account
         oauthUrl: "https://www.bungie.net/en/OAuth/Authorize",
@@ -28,7 +28,6 @@ class Credentials {
         bungieGlobalDisplayName: "", // Bungie display name w/o numbers
         bungieGlobalDisplayNameCode: 0000, // numbers after bungie display name
         manifestLocation: "" // save location for downloaded manifest file from Destiny API. This is a GIANT json object
-    };
+    }
 }
 
-module.exports = new Credentials();

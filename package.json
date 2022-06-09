@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "bot for updating Discord with information from Destiny",
   "main": "destinybot.js",
+  "type": "module",
   "scripts": {
     "test": "test",
     "reg-command": "node src/utils/register-commands.js",

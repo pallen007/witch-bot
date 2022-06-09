@@ -1,11 +1,11 @@
 // Setup our environment variables via dotenv
 // require('dotenv').config()
-const _ = require('lodash')
-const _credentials = require('../config/credentials')
-const _retrieve = require('../src/actions/retrieve-destiny')
-const { DbOps } = require('../src/utils/database-ops')
+// const _ = require('lodash')
+import * as _credentials from '../config/credentials.js'
+import * as _retrieve from './actions/retrieve-destiny.js'
+import { DbOps } from './utils/database-ops.js'
 // Import relevant classes from discord.js
-const { Client, Intents } = require('discord.js');
+import { Client, Intents } from 'discord.js'
 
 
 // Instantiate a new client with some necessary parameters.
