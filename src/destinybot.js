@@ -1,9 +1,9 @@
 // Setup our environment variables via dotenv
 // require('dotenv').config()
 // const _ = require('lodash')
-import * as _credentials from '../config/credentials.js'
+import { Credentials } from '../config/credentials.js'
 import * as _retrieve from './actions/retrieve-destiny.js'
-import { DbOps } from './utils/database-ops.js'
+import * as database from './utils/database-ops.js'
 // Import relevant classes from discord.js
 import { Client, Intents } from 'discord.js'
 
@@ -13,12 +13,11 @@ const client = new Client(
     { intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] }
 );
 
-// download Destiny manifest if not already downloaded
-const database = new DbOps()
-
 // Notify progress
 client.on('ready', function(e){
     console.log(`Logged in as ${client.user.tag}!`)
+    // refresh the database when the app starts up
+    database.refreshDb()
 })
 
 client.on('messageCreate',
@@ -35,4 +34,4 @@ client.on('messageCreate',
     })
 
 // Authenticate
-client.login(_credentials.discord.botToken)
+client.login(Credentials.discord.botToken)

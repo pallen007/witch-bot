@@ -2,4 +2,4 @@ node_modules
 .env
 config/credentials.js
 sample.json
-manifests/vendor-manifest.json
+manifests/

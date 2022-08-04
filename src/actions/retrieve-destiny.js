@@ -3,25 +3,21 @@ import fetch from "node-fetch";
 import * as _headers from "../utils/headers.js";
 import fs from "fs";
 
-export const refreshManifest = () => {
+export const refreshManifest = async () => {
 	try {
-		fetch(`${config.destiny.rootPath}/Manifest`, {
+		const masterList = await fetch(`${config.destiny.rootPath}/Manifest`, {
 			method: "GET",
 			headers: { ..._headers.destinyHeaders() },
-		}).then(res => {
-				console.log(res.json().destiny.rootPath);
-				fetch(
-					`${config.destiny.rootPath}${res.jsonWorldContentPaths.en}`,
-					{
-						method: "GET",
-						headers: { ..._headers.destinyHeaders() },
-					}
-				).then((result) => {
-                    fs.writeFileSync(config.destiny.manifestLocation, result.json());
-                    console.log("wrote new Manifest");
-                    return config.destiny.manifestLocation;
-                });
-			})
+		})
+		const manifestFetch = await fetch(
+						`${config.destiny.rootPath}${masterList.jsonWorldContentPaths.en}`,
+						{
+							method: "GET",
+							headers: { ..._headers.destinyHeaders() },
+						}
+					)
+
+		fs.writeFileSync(config.destiny.manifestLocation, manifestFetch)
 	} catch {
 		(err) => {
 			throw new Error(err);
