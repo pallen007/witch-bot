@@ -7,3 +7,10 @@ export const destinyHeaders = () => {
 		"User-Agent": `${credentials.destiny.appName}/${credentials.destiny.appVersion} AppId/appIdNum (${credentials.destiny.contactEmail})`,
 	};
 };
+
+export const destinyAuthHeaders = () => {
+	return {
+		"Content-Type": "application/x-www-form-urlencoded",
+		...destinyHeaders()
+	}
+}

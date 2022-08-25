@@ -15,7 +15,7 @@ export const refreshDb = () => {
         })
     }
 
-export const lookup = (itemType, itemHash) => {}
+const lookup = (itemType, itemHash) => {}
 
 export const lookupItem = (itemHash) => {}
 export const lookupArmor = (itemHash) => {}

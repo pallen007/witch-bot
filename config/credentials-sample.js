@@ -15,6 +15,7 @@ export const Credentials = {
         oauthUrl: "https://www.bungie.net/en/OAuth/Authorize",
         oathClientId: "", // this and the next field are taken from Bungie account
         oathClientSecret: "",
+        oauthToken: "", // Adding this for now because I'm getting an auth token with Postman. In the future, this will be tied to the user making a request and more code will be needed
         suggestedHeaders:{
             "User-Agent": "AppName/Version AppId/appIdNum (+webUrl;contactEmail)"
         },
@@ -27,7 +28,8 @@ export const Credentials = {
         displayName: "", // xbox display
         bungieGlobalDisplayName: "", // Bungie display name w/o numbers
         bungieGlobalDisplayNameCode: 0000, // numbers after bungie display name
-        manifestLocation: "" // save location for downloaded manifest file from Destiny API. This is a GIANT json object
+        manifestLocation: "", // Currently a duplicate value, use next line instead
+        aggregateManifest: "" // full address/filename for the downloaded aggregate manifest file from Destiny 2 API. This object will be massive
     }
 }
 

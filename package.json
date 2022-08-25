@@ -8,7 +8,8 @@
     "test": "test",
     "reg-command": "node src/utils/register-commands.js",
     "start": "npm run reg-command && node src/destinybot.js",
-    "start-dev": "node src/destinybot.js"
+    "start-dev": "node src/destinybot.js",
+    "gen-state": "run-func src/utils/common-functions.js generateAuthState"
   },
   "author": "Parker Allen",
   "license": "ISC",
@@ -24,6 +25,7 @@
     "fs": "^0.0.1-security",
     "lodash": "^4.17.21",
     "node-fetch": "^2.6.7",
+    "run-func": "^3.0.0",
     "url": "^0.11.0"
   }
 }

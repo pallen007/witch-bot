@@ -1,4 +1,4 @@
-import { crypto } from "crypto";
+import * as crypto from 'crypto'
 
 export const convertHash = (hash) => {
 	return hash >> 32;
@@ -18,4 +18,5 @@ export const generateAuthState = () => {
 
 export const authenticate = () => {
 	stateCheck = this.generateAuthState();
+	
 };
