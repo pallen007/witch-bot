@@ -31,6 +31,11 @@ client.on('messageCreate',
             await msg.reply("Got 'em")
         }
 
+        if(msg.content == "refresh"){
+            database.refreshDb()
+            await msg.reply("Your database is refreshed and restored")
+        }
+
     })
 
 // Authenticate

@@ -4,6 +4,7 @@ export const convertHash = (hash) => {
 	return hash >> 32;
 };
 
+// This will only be used when there is a clientside app, so maybe later
 export const generateAuthState = () => {
 	// shamelessly stolen from https://gist.github.com/darrenmothersele/7cd24da0f35d450babd4745c7f208acf#file-random2-js
 	const validChars =
