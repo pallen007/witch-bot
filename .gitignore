@@ -3,3 +3,4 @@ node_modules
 config/credentials.js
 sample.json
 manifests/
+launch.json

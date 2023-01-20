@@ -1,68 +1,34 @@
 import { Credentials } from "../../config/credentials.js";
-// import fetch from "node-fetch";
 import * as _headers from "../utils/headers.js";
-import * as fs from "fs/promises";
+import * as fs from "fs";
 import { URLSearchParams } from "url";
+import { Readable } from "stream";
 
-// export const refreshManifest = async () => {
-// 	try {
-// 		const masterList = await fetch(`${Credentials.destiny.rootPath}/Manifest`, {
-// 			method: "GET",
-// 			headers: { ..._headers.destinyHeaders() },
-// 		})
-// 		await fetch(
-// 				`${Credentials.destiny.rootPath}${masterList.json().jsonWorldContentPaths.en}`,
-// 				{
-// 					method: "GET",
-// 					headers: { ..._headers.destinyHeaders() },
-// 				}
-// 			).then((resp) => {
-// 				fs.writeFile(Credentials.destiny.manifestLocation, resp.json(), (err) => {
-// 					if (err) throw err;
-// 					console.log("finished writing data")
-// 				})
-// 			})
-// 	} catch {
-// 		(err) => {
-// 			console.log(err)
-// 		}
-// 	}
-// };
+export const downloadFile = async (url, options, path)=> {
+	Readable.fromWeb((await fetch(url, options)).body).pipe(fs.createWriteStream(path))
+}
 
-const fetchMasterIndex = async () => {
-	try {
-		await fetch(`https://www.bungie.net/Platform/Destiny2/Manifest`, {
-			method: "GET",
-			headers: { ..._headers.destinyHeaders() },
-			credentials: "include"
-		}).then( (resp) => {
-			if (!Response.ok) {
-				throw new Error(`Fetch error: ${response.status}`)
-			}
-			return resp.json()
-		})
-	}
-	catch {
-		(err) => {
-			console.log(err)
-		}
-	}
-	}
-
-const fetchJSONManifest = async () => {
-	console.log(fetchMasterIndex())
+// Not used. DownloadFile is used from database-ops instead. Better performance and I don't want to rewrite this method yet again
+export const refreshManifest = async () => {
 	try {
 
-		const manifest = await fetch(
-			`${Credentials.destiny.rootPath}${fetchMasterIndex().jsonWorldContentPaths.en}`,
+		const getManifest = await fetch(
+			`${Credentials.destiny.rootPath}${Credentials.destiny.apiManifestPath}`,
 			{
 				method: "GET",
 				headers: { ..._headers.destinyHeaders() },
 				credentials: "include"
 			}
 		)
-		const retValue = await manifest.json()
-		return retValue
+		if (getManifest.json() == null) {
+			console.log("No results from fetch")
+			throw new Error("request failed")
+		} else {
+			fs.writeFile(Credentials.destiny.aggregateManifest, JSON.stringify(getManifest.json()), (err) => {
+					if (err) throw err;
+				}).then(()=> {return true})
+		}
+		Promise.resolve()
 	}
 	catch {
 		(err) => {
@@ -72,23 +38,6 @@ const fetchJSONManifest = async () => {
 	
 }
 
-
-export const refreshManifest = async () => {
-	fetchMasterIndex().then((resp) => {
-		if (!Response.ok) {
-			console.log("Something went wrong with the fetch.")
-			console.log(Response.statusText)
-			console.log(resp)
-		}
-		else console.log(Response.body)
-	})
-	// await fetchJSONManifest().then((resp) => {
-	// 	fs.writeFile(Credentials.destiny.manifestLocation, resp, (err) => {
-	// 		if (err) throw err;
-	// 		console.log("finished writing data")
-	// 	})
-	// })
-}
 
 export const getVendorItems = async () => {
 	try {

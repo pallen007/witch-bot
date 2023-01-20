@@ -14,10 +14,13 @@ const client = new Client(
 );
 
 // Notify progress
-client.on('ready', function(e){
+client.on('ready', async function(e){
     console.log(`Logged in as ${client.user.tag}!`)
     // refresh the database when the app starts up
-    database.refreshDb()
+    // database.refreshDb()
+    // await _retrieve.refreshManifest().then(() => {
+    //     console.log(`Logged in as ${client.user.tag}!`)
+    // })
 })
 
 client.on('messageCreate',
@@ -32,8 +35,8 @@ client.on('messageCreate',
         }
 
         if(msg.content == "refresh"){
-            database.refreshDb()
-            await msg.reply("Your database is refreshed and restored")
+            await database.refreshDb().then(()=> msg.reply("Your database is refreshed and restored"))
+            // await msg.reply("Your database is refreshed and restored")
         }
 
     })

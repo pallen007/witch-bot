@@ -1,22 +1,28 @@
 import * as retrieve from'../actions/retrieve-destiny.js'
 import { Credentials } from '../../config/credentials.js'
-// import { pathToFileURL } from 'url'
-import * as fs from 'fs/promises'
+import * as fs from 'fs'
+import * as _headers from "../utils/headers.js";
+
 // import { ModalBuilder } from '@discordjs/builders'
 
 // TODO: Implement SQLite here for a database?
 let db = null
 
 export const refreshDb = async() => {
-        await retrieve.refreshManifest()
-        // .then( () => {
-        //     fs.access(Credentials.destiny.aggregateManifest, fs.F_OK, (err) => {
-        //         if (err) {
-        //           throw new Error(err)
-        //         }
-        //       })
-        //       console.log("Downloaded")
-        // })
+        await retrieve.downloadFile(`${Credentials.destiny.rootPath}${Credentials.destiny.apiManifestPath}`, {
+          method: "GET",
+          headers: { ..._headers.destinyHeaders() },
+          credentials: "include"
+        },
+        Credentials.destiny.aggregateManifest)
+        .then( () => {
+            fs.access(Credentials.destiny.aggregateManifest, fs.F_OK, (err) => {
+                if (err) {
+                  throw new Error(err)
+                }
+              })
+              console.log("Downloaded")
+        })
     }
 
 const lookup = (itemType, itemHash) => {}
